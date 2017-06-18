@@ -1,0 +1,182 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Delete-Bird",
+		"_postman_id": "063dd4ab-7cb5-911e-6f3b-23403916edb7",
+		"description": "Test cases for deleting bird by ID",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Failure BIRD dleteion - bad URI -http://localhost:8080/bs/services/birdssss",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"UnSuccessful Delete  birds - Response code 404 - bad URI\"] = responseCode.code === 404",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/bs/services/birdssss",
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": "Failure BIRD dleteion - bad URI -http://localhost:8080/bs/services/birdssss"
+			},
+			"response": []
+		},
+		{
+			"name": "Failure BIRD dleteion - Bird not present -http://localhost:8080/bs/services/birdssss copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"UnSuccessful Delete  birds - Response code 404 - bad URI\"] = responseCode.code === 404",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/bs/services/birds/11111111111111111",
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": "Failure BIRD dleteion -bird not present -http://localhost:8080/bs/services/birdssss"
+			},
+			"response": []
+		},
+		{
+			"name": "Sucessful post  - to later delete",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Successful Bird creation 1 - Response code 201\"] = responseCode.code === 201",
+							"tests[\"Status code name has string\"] = responseCode.name.has(\"Created\");",
+							"tests[\"Content-Type is JSON\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json\";",
+							"",
+							"",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"Your test name\"] = jsonData !== undefined"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/bs/services/bird",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"waterbird\",\r\n  \"family\": \"good\",\r\n  \"continents\": [\r\n    \"Europe\",\r\n    \"Australia Africa\"\r\n  ],\r\n  \"visible\": false,\r\n  \"added\": \"2017-06-17\"\r\n}"
+				},
+				"description": "Failure BIRD dleteion -bird not present -http://localhost:8080/bs/services/bird/59461abb726c172b80f011d5"
+			},
+			"response": []
+		},
+		{
+			"name": "Sucessful post  - to later delete copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Successful Bird deletion 1 - Response code 200\"] = responseCode.code === 200",
+							"",
+							"",
+							"tests[\"Body is correct\"] = responseBody === \"\";",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/bs/services/bird/59461abb726c172b80f011d5",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": "Duccessful POST"
+			},
+			"response": []
+		},
+		{
+			"name": "UnSuccessful Bird retriveal after  deletion - Response code 404",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"UnSuccessful Bird retriveal after  deletion - Response code 404\"] = responseCode.code === 404",
+							"",
+							"//http://localhost:8080/bs/services/bird/59461abb726c172b80f011d5",
+							"",
+							"",
+							"",
+							"",
+							"tests[\"Body matches string\"] = responseBody.has(\"HTTP Status 404 - Not Found\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/bs/services/bird/59461abb726c172b80f011d5",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": "UnSuccessful Bird retriveal after  deletion - Response code 404"
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,645 @@
+{
+	"variables": [],
+	"info": {
+		"name": "BirdsService - addition(Create) copy",
+		"_postman_id": "08b74810-b52e-601d-7e9f-41595e3b5db0",
+		"description": "Test Suite to test Birds REST API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Successful Bird addition - 201 resp, visibility true",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Successful Bird creation 1 - Response code 201\"] = responseCode.code === 201",
+							"tests[\"Status code name has string\"] = responseCode.name.has(\"Created\");",
+							"tests[\"Content-Type is JSON\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json\";",
+							"",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/bs/services/bird",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"\\\"firebird\\\"\",\r\n  \"family\": \"\\\"carnivorous\\\"\",\r\n  \"continents\": [\r\n    \"\\\"Europe\\\"\",\r\n    \"\\\"Australia\\\" \\\"Africa\\\" \\\"South America\\\"\"\r\n  ],\r\n  \"visible\": true\r\n}"
+				},
+				"description": "Tests successful addition of bird into database with minimal required params ie name, continents,family"
+			},
+			"response": []
+		},
+		{
+			"name": "Succeful Bird addition - 201 resp, visibility false",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Successful Bird creation 1 - Response code 201\"] = responseCode.code === 201",
+							"tests[\"Status code name has string\"] = responseCode.name.has(\"Created\");",
+							"tests[\"Content-Type is JSON\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json\";",
+							"",
+							"",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"Your test name\"] = jsonData !== undefined"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/bs/services/bird",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"\\\"owl\\\"\",\r\n  \"family\": \"\\\"nocturnal\\\"\",\r\n  \"continents\": [\r\n    \"\\\"Europe\\\"\",\r\n    \"\\\"Australia\\\" \\\"Africa\\\"\"\r\n  ],\r\n  \"visible\": false\r\n}"
+				},
+				"description": "Bird addition test with visbibility set to false"
+			},
+			"response": []
+		},
+		{
+			"name": "Unsuccessful Bird addition - 400 resp, invalid date format",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"unSuccessful Bird creation - Response code 400\"] = responseCode.code === 400",
+							"",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/bs/services/bird",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"rowl\",\r\n  \"family\": \"nocturnal\",\r\n  \"continents\": [\r\n    \"Europe\",\r\n    \"Australia Africa\"\r\n  ],\r\n  \"visible\": false,\r\n  \"added\": \"17-06-2017\"\r\n}"
+				},
+				"description": "Bird add with 400 resp - invalid date format"
+			},
+			"response": []
+		},
+		{
+			"name": "Unsuccessful Bird addition - 400 resp, missing name",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"unSuccessful Bird creation - Response code 400\"] = responseCode.code === 400"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/bs/services/bird",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"family\": \"nocturnal\",\r\n  \"continents\": [\r\n    \"Europe\",\r\n    \"Australia Africa\"\r\n  ],\r\n  \"visible\": false,\r\n  \"added\": \"2017-06-17\"\r\n}"
+				},
+				"description": "Bird add with 400 response - missing name field"
+			},
+			"response": []
+		},
+		{
+			"name": "Failure bird addition - 400 resp, family missing",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"unSuccessful Bird creation - Response code 400\"] = responseCode.code === 400"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/bs/services/bird",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"owl\",\r\n  \"continents\": [\r\n    \"Europe\",\r\n    \"Australia Africa\"\r\n  ],\r\n  \"visible\": false,\r\n  \"added\": \"2017-06-17\"\r\n}"
+				},
+				"description": "Failure bird addition - 400 resp, family missing"
+			},
+			"response": []
+		},
+		{
+			"name": "Failure bird addition - 400 resp, continents missing",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"unSuccessful Bird creation - Response code 400\"] = responseCode.code === 400"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/bs/services/bird",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"owl\",\r\n  \"family\": \"nocturnal\",\r\n  \"visible\": false,\r\n  \"added\": \"2017-06-17\"\r\n}"
+				},
+				"description": "Failure bird addition - 400 resp, continents missing"
+			},
+			"response": []
+		},
+		{
+			"name": "Failure Bird addition - 400 resp, malforemd JSON req body- missing comma",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"unSuccessful Bird creation - Response code 400\"] = responseCode.code === 400"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/bs/services/bird",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"owl\",\r\n  \"family\": \"nocturnal\",\r\n  \"continents\": [\r\n    \"Europe\",\r\n    \"Australia Africa\"\r\n  ],\r\n  \"visible\": false\r\n  \"added\": \"2017-06-17\"\r\n}"
+				},
+				"description": "Failure bird addition - 401 resp, malformed JSON REQ body.Missing comma"
+			},
+			"response": []
+		},
+		{
+			"name": "Failure Bird addition - 415 resp, as Content-type : text/xml",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"unSuccessful Bird creation - Response code 415\"] = responseCode.code === 415"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/bs/services/bird",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/plain",
+						"description": ""
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"owl\",\r\n  \"family\": \"nocturnal\",\r\n  \"continents\": [\r\n    \"Europe\",\r\n    \"Australia\",\r\n    \"Africa\",\r\n    \"Europe\"\r\n  ],\r\n  \"visible\": false,\r\n  \"added\": \"2017-06-17\"\r\n}"
+				},
+				"description": "Failure Bird addition - 415 resp, as Content-type : text/xml"
+			},
+			"response": []
+		},
+		{
+			"name": "Bird addition failed - 400 resp, duplicate continents- exact duplicate Europe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"unSuccessful Bird creation - Response code 400\"] = responseCode.code === 400"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/bs/services/bird",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"owl\",\r\n  \"family\": \"nocturnal\",\r\n  \"continents\": [\r\n    \"Europe\",\r\n    \"Australia\",\r\n    \"Africa\",\r\n    \"Europe\"\r\n  ],\r\n  \"visible\": false,\r\n  \"added\": \"2017-06-17\"\r\n}"
+				},
+				"description": "Bird addition failed - 400 resp, duplicate continents- exact duplicate Europe"
+			},
+			"response": []
+		},
+		{
+			"name": "Bird addition failed - 400  resp, continents duplicated, smaller case Europe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"unSuccessful Bird creation - Response code 400\"] = responseCode.code === 400"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/bs/services/bird",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"owl\",\r\n  \"family\": \"nocturnal\",\r\n  \"continents\": [\r\n    \"Europe\",\r\n    \"Australia\",\r\n    \"Africa\",\r\n    \"europe\"\r\n  ],\r\n  \"visible\": false,\r\n  \"added\": \"2017-06-17\"\r\n}"
+				},
+				"description": "Bird addition failed - 400 resp, continents duplicated, smaller case Europe"
+			},
+			"response": []
+		},
+		{
+			"name": "Adiition failed - 400 resp as name is empty",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"unSuccessful Bird creation - Response code 400\"] = responseCode.code === 400"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/bs/services/bird",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"\",\r\n  \"family\": \"nocturnal\",\r\n  \"continents\": [\r\n    \"Europe\",\r\n    \"Australia\",\r\n    \"Africa\"\r\n  ],\r\n  \"visible\": false,\r\n  \"added\": \"2017-06-17\"\r\n}"
+				},
+				"description": "Adiition failed - 400 resp as name is empty"
+			},
+			"response": []
+		},
+		{
+			"name": "addition bird failed - 400 response as family empty",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"unSuccessful Bird creation - Response code 400\"] = responseCode.code === 400"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/bs/services/bird",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"owl\",\r\n  \"family\": \"   \",\r\n  \"continents\": [\r\n    \"Europe\",\r\n    \"Australia\",\r\n    \"Africa\"\r\n  ],\r\n  \"visible\": false,\r\n  \"added\": \"2017-06-17\"\r\n}"
+				},
+				"description": "addition bird failed - 400 response as family empty"
+			},
+			"response": []
+		},
+		{
+			"name": "Addition failed - 400 resp ad contients is empty",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"unSuccessful Bird creation - Response code 400\"] = responseCode.code === 400"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/bs/services/bird",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"owl\",\r\n  \"family\": \"real\",\r\n  \"continents\": [],\r\n  \"visible\": false,\r\n  \"added\": \"2017-06-17\"\r\n}"
+				},
+				"description": "Addition failed - 400 resp ad contients is empty"
+			},
+			"response": []
+		},
+		{
+			"name": "addition failed - 400 resp - name field badly formed",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"unSuccessful Bird creation - Response code 400\"] = responseCode.code === 400"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/bs/services/bird",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nam\": \"owl\",\r\n  \"family\": \"real\",\r\n  \"continents\": [\"Europe\"],\r\n  \"visible\": false,\r\n  \"added\": \"2017-06-17\"\r\n}"
+				},
+				"description": "addition failed - 400 resp - name field badly formed"
+			},
+			"response": []
+		},
+		{
+			"name": "addition failed - 400 resp - family field name badly formed",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"unSuccessful Bird creation - Response code 400\"] = responseCode.code === 400"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/bs/services/bird",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"owl\",\r\n  \"famiy\": \"real\",\r\n  \"continents\": [\"Europe\"],\r\n  \"visible\": false,\r\n  \"added\": \"2017-06-17\"\r\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "add failed - 400 resp- malformed json-invalid value for visible field",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"unSuccessful Bird creation - Response code 400\"] = responseCode.code === 400"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/bs/services/bird",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"owl\",\r\n  \"family\": \"real\",\r\n  \"continents\": [\"Europe\"],\r\n  \"visible\": unknown,\r\n  \"added\": \"2017-06-17\"\r\n}"
+				},
+				"description": "add failed - 400 resp- malformed json-invalid value for visible field"
+			},
+			"response": []
+		},
+		{
+			"name": "Successful Bird creation - 201 resp -minimal case with only requred fields",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Successful Bird creation 1 - Response code 201\"] = responseCode.code === 201",
+							"tests[\"Status code name has string\"] = responseCode.name.has(\"Created\");",
+							"tests[\"Content-Type is JSON\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json\";",
+							"",
+							"",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"Your test name\"] = jsonData !== undefined"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/bs/services/bird",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"newbird\",\r\n  \"family\": \"real\",\r\n  \"continents\": [\"Europe\"]\r\n  \r\n}"
+				},
+				"description": "Successful Bird creation - 201 resp -minimal case with only requred fields"
+			},
+			"response": []
+		}
+	]
+}

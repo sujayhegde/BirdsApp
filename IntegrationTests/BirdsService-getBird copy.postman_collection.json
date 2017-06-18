@@ -1,0 +1,273 @@
+{
+	"variables": [],
+	"info": {
+		"name": "BirdsService-getBird copy",
+		"_postman_id": "29e9c318-6493-69c8-d887-e4e4bbc5b51b",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "POst with visibility off - http://localhost:8080/bs/services/bird/594613ca726c1725785930aa",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Successful Bird creation 1 - Response code 201\"] = responseCode.code === 201",
+							"tests[\"Status code name has string\"] = responseCode.name.has(\"Created\");",
+							"tests[\"Content-Type is JSON\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json\";",
+							"",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/bs/services/bird",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"\\\"riverbird\\\"\",\r\n  \"family\": \"\\\"carnivorous\\\"\",\r\n  \"continents\": [\r\n    \"\\\"Europe\\\"\",\r\n    \"\\\"Australia\\\" \\\"Africa\\\" \\\"South America\\\"\"\r\n  ],\r\n  \"visible\": false\r\n}"
+				},
+				"description": "POst with visibility off "
+			},
+			"response": []
+		},
+		{
+			"name": "get bird successful - visibility off",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Successful Bird retieval visibilioty off 1 - Response code 200\"] = responseCode.code === 200",
+							"",
+							"",
+							"",
+							"",
+							"",
+							"tests[\"Body matches string\"] = responseBody.has(\"\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/bs/services/bird/594613ca726c1725785930aa",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"\\\"riverbird\\\"\",\r\n  \"family\": \"\\\"carnivorous\\\"\",\r\n  \"continents\": [\r\n    \"\\\"Europe\\\"\",\r\n    \"\\\"Australia\\\" \\\"Africa\\\" \\\"South America\\\"\"\r\n  ],\r\n  \"visible\": false\r\n}"
+				},
+				"description": "http://localhost:8080/bs/services/bird/594613ca726c1725785930aa"
+			},
+			"response": []
+		},
+		{
+			"name": "Succesful addition with visibility ON",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Successful Bird creation 1 - Response code 201\"] = responseCode.code === 201",
+							"tests[\"Status code name has string\"] = responseCode.name.has(\"Created\");",
+							"tests[\"Content-Type is JSON\"] = postman.getResponseHeader(\"Content-Type\") === \"application/json\";",
+							"",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/bs/services/bird",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"\\\"land\\\"\",\r\n  \"family\": \"\\\"landia\\\"\",\r\n  \"continents\": [\r\n    \"\\\"Europe\\\"\",\r\n    \"\\\"Australia\\\" \\\"Asia\\\" \\\"South America\\\"\"\r\n  ],\r\n  \"visible\": true\r\n}"
+				},
+				"description": "Succesful addition with visibility ON"
+			},
+			"response": []
+		},
+		{
+			"name": "add bird with vsisibility - successfful http://localhost:8080/bs/services/bird/59461484726c1725785930af",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Successful Bird retieval visibilioty off 1 - Response code 200\"] = responseCode.code === 200",
+							"",
+							"",
+							"",
+							"",
+							"var jsonData = JSON.parse(responseBody);",
+							"tests[\"name present\"] = jsonData.name !== undefined;",
+							"tests[\"name present\"] = jsonData.family !== undefined;",
+							"tests[\"name present\"] = jsonData.continents !== undefined;",
+							"tests[\"name present\"] = jsonData.visibility !== undefined;",
+							"tests[\"name present\"] = jsonData.added !== undefined;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/bs/services/bird/59461484726c1725785930af",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"\\\"riverbird\\\"\",\r\n  \"family\": \"\\\"carnivorous\\\"\",\r\n  \"continents\": [\r\n    \"\\\"Europe\\\"\",\r\n    \"\\\"Australia\\\" \\\"Africa\\\" \\\"South America\\\"\"\r\n  ],\r\n  \"visible\": false\r\n}"
+				},
+				"description": "http://localhost:8080/bs/services/bird/59461484726c1725785930af"
+			},
+			"response": []
+		},
+		{
+			"name": "unsucessful retrieval -Invalid ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"UnSuccessful Bird retieval  off 1 - Response code 404\"] = responseCode.code === 404",
+							"",
+							"",
+							"",
+							"",
+							"tests[\"Body matches 404\"] = responseBody.has(\"HTTP Status 404 - Not Found\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/bs/services/bird/aaaaaaaaaaaa",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"\\\"riverbird\\\"\",\r\n  \"family\": \"\\\"carnivorous\\\"\",\r\n  \"continents\": [\r\n    \"\\\"Europe\\\"\",\r\n    \"\\\"Australia\\\" \\\"Africa\\\" \\\"South America\\\"\"\r\n  ],\r\n  \"visible\": false\r\n}"
+				},
+				"description": "http://localhost:8080/bs/services/bird/aaaaaaaaaaaa"
+			},
+			"response": []
+		},
+		{
+			"name": "BIRDS RETRIEVAL - http://localhost:8080/bs/services/birds",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Successful Birds  retieval - Response code 200\"] = responseCode.code === 200",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/bs/services/birds",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"\\\"WERRING\\\"\",\r\n  \"family\": \"\\\"carnivorous\\\"\",\r\n  \"continents\": [\r\n    \"\\\"Europe\\\"\",\r\n    \"\\\"Australia\\\" \\\"Africa\\\" \\\"South America\\\"\"\r\n  ],\r\n  \"visible\": false,\r\n  \"added\" : \"4000-04-12\"\r\n}"
+				},
+				"description": "http://localhost:8080/bs/services/birds"
+			},
+			"response": []
+		},
+		{
+			"name": "UNSUCESSFUL BIRDS RETRIEVAL - http://localhost:8080/bs/services/birdssss - invalid URI",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"UnSuccessful Birds  retieval - Response code 404 - bad URI\"] = responseCode.code === 404",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "http://localhost:8080/bs/services/birdssss",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"\\\"WERRING\\\"\",\r\n  \"family\": \"\\\"carnivorous\\\"\",\r\n  \"continents\": [\r\n    \"\\\"Europe\\\"\",\r\n    \"\\\"Australia\\\" \\\"Africa\\\" \\\"South America\\\"\"\r\n  ],\r\n  \"visible\": false,\r\n  \"added\" : \"4000-04-12\"\r\n}"
+				},
+				"description": "http://localhost:8080/bs/services/birds"
+			},
+			"response": []
+		}
+	]
+}
